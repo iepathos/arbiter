@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/749/trunk/core/pygraph/algorithms
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/519/trunk/core/pygraph/algorithms/__init__.py
+END
+utils.py
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/510/trunk/core/pygraph/algorithms/utils.py
+END
+cycles.py
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/749/trunk/core/pygraph/algorithms/cycles.py
+END
+searching.py
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/684/trunk/core/pygraph/algorithms/searching.py
+END
+traversal.py
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/707/trunk/core/pygraph/algorithms/traversal.py
+END
+sorting.py
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/601/trunk/core/pygraph/algorithms/sorting.py
+END
+accessibility.py
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/707/trunk/core/pygraph/algorithms/accessibility.py
+END
+pagerank.py
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/724/trunk/core/pygraph/algorithms/pagerank.py
+END
+generators.py
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/723/trunk/core/pygraph/algorithms/generators.py
+END
+minmax.py
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/740/trunk/core/pygraph/algorithms/minmax.py
+END
+critical.py
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/614/trunk/core/pygraph/algorithms/critical.py
+END

@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/727/trunk/core/pygraph/mixins
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/692/trunk/core/pygraph/mixins/__init__.py
+END
+common.py
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/727/trunk/core/pygraph/mixins/common.py
+END
+basegraph.py
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/641/trunk/core/pygraph/mixins/basegraph.py
+END
+labeling.py
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/705/trunk/core/pygraph/mixins/labeling.py
+END

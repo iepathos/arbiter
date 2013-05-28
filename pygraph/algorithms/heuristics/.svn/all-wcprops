@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/599/trunk/core/pygraph/algorithms/heuristics
+END
+euclidean.py
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/599/trunk/core/pygraph/algorithms/heuristics/euclidean.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/531/trunk/core/pygraph/algorithms/heuristics/__init__.py
+END
+chow.py
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/599/trunk/core/pygraph/algorithms/heuristics/chow.py
+END

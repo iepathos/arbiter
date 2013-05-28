@@ -1,0 +1,42 @@
+waffle@Gizmo:~/Desktop/arbitrage$ ./arbitrage.py 
+Initialized RatesWalker....
+
+         Retrieving Currency Exchange Rates
+
+{
+    "BTC_BTC": "1.0000000", 
+    "BTC_EUR": "77.9610654", 
+    "BTC_JPY": "10819.2847738", 
+    "BTC_USD": "105.6919495", 
+    "EUR_BTC": "0.0126337", 
+    "EUR_EUR": "1.0000000", 
+    "EUR_JPY": "147.8463494", 
+    "EUR_USD": "1.4429941", 
+    "JPY_BTC": "0.0000756", 
+    "JPY_EUR": "0.0070780", 
+    "JPY_JPY": "1.0000000", 
+    "JPY_USD": "0.0090988", 
+    "USD_BTC": "0.0088639", 
+    "USD_EUR": "0.8305611", 
+    "USD_JPY": "109.3951144", 
+    "USD_USD": "1.0000000"
+}
+Total number of currencies in data set: 4 
+
+         Creating Image of DiGraph of Rates Data Set
+
+         Creating Image of DiGraph of -log(Rates Data Set)
+
+Initialized Arbiter....
+
+         Searching for Arbitrage Opportunities in Data Set....
+
+The most profitable arbitrage opportunity is: ('JPY', 'USD', 'EUR')
+With a rate of return of: 13.0188192154 %
+
+         Creating Image of DiGraph of Best Arbitrage Opportunity
+
+Initialized transactionTracking....
+
+         Ready to begin transaction....
+waffle@Gizmo:~/Desktop/arbitrage$ 
