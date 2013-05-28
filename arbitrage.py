@@ -66,9 +66,6 @@ if __name__ == '__main__':
 	#
 	#	ratesTracking() - arbiterTracking() - transactionTracking()
 
-	#current_rates = {}
-	#processed_rates = {}
-
 	### These variables handle synchronization between threads
 
 	#async_result_rates = AsyncResult()
@@ -77,10 +74,10 @@ if __name__ == '__main__':
 	#async_result_opportunity = AsyncResult()
 	#arbitrage_opportunity = Event()
 
+	rates_q = JoinableQueue()
+
 	rates_tracking = True
 	arbiter_tracking = True
-
-	rates_q = JoinableQueue()
 
 	## Rates Thread
 	def ratesTracking():
@@ -102,10 +99,6 @@ if __name__ == '__main__':
 			rates_window.refresh()
 
 			#print 'Total number of currencies in data set:', len(processed_rates), '\n'
-
-			# Send results to Arbiter to begin searching for opportunities
-			#async_result_rates.set(processed_rates)
-
 
 			# Create DiGraph Image of Rates
 			#print '         Creating Image of DiGraph of Rates Data Set\n'
@@ -156,14 +149,10 @@ if __name__ == '__main__':
 
 						arb_dg = arbiter.createCircularDiGraph(best_polygon, processed_rates)
 
-						#async_result_opportunity.set(arb_dg)
-						#arbitrage_opportunity.set()
-
 						# Create image of best polygon digraph
 						#print '         Creating Image of DiGraph of Best Arbitrage Opportunity\n'
 						#createImageFromDiGraph(arb_dg, 'best_opportunity')
 						#print ' - Created image best_opportunity_digraph.png\n'
-
 
 	## Transaction Thread
 	def transactionTracking():
@@ -174,7 +163,7 @@ if __name__ == '__main__':
 		#print 'transactionTracking() received arbitrage polygon:', arbitrage_dg, '\n'
 		print '         Ready to begin transaction....'		
 	
-	# inputTracking()
+	# Input Tracking
 	while 1:
 		stdscr.addstr(0, 1, 'Arbitrage Program created by Glen Baker', curses.A_REVERSE)
 		stdscr.addstr(1, 1, "- Press enter to continue, 'q' to quit")
@@ -184,8 +173,7 @@ if __name__ == '__main__':
 			curses.nocbreak(); stdscr.keypad(0); curses.echo()
 			curses.endwin()
 
-			# Shutdown Gevent Queue
-			rates_q = JoinableQueue()
+			rates_q = JoinableQueue() # Clear Gevent Queue
 			break
 		if c == ord('r'):
 			rates_tracking = not rates_tracking
@@ -197,7 +185,3 @@ if __name__ == '__main__':
 		])
 
 	rates_q.join()
-
-	# Consistently returns edge (JPY, USD) with the negative weight cycle.
-	# I believe the triangular arbitrage solution is: JPY -> USD -> BTC
-	#												  JPY -> USD -> EUR
