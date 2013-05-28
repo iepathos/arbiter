@@ -14,7 +14,7 @@ import json
 from gevent.event import Event, AsyncResult
 from gevent.queue import JoinableQueue
 
-import signal
+#import signal
 
 from time import gmtime, strftime
 import time
@@ -51,16 +51,15 @@ if __name__ == '__main__':
 	arb_begin_x = 0
 	arb_begin_y = 25
 	arb_height = 15
-	arb_width = 80
+	arb_width = 40
 	arbiter_window = curses.newwin(arb_height, arb_width, arb_begin_y, arb_begin_x)
 
 	# Transactions UI
-	trans_begin_x = 0
-	trans_begin_y = 40
-	trans_height = 10
-	trans_width = 40
-	trans_window = curses.newwin(trans_height, trans_width, trans_begin_y, trans_begin_x)
-
+	#trans_begin_x = 0
+	#trans_begin_y = 40
+	#trans_height = 10
+	#trans_width = 40
+	#trans_window = curses.newwin(trans_height, trans_width, trans_begin_y, trans_begin_x)
 
 	### Gevent Threads
 	#
@@ -69,7 +68,7 @@ if __name__ == '__main__':
 	### These variables handle synchronization between threads
 
 	#async_result_rates = AsyncResult()
-	rates_started = Event()
+	#rates_started = Event()
 
 	#async_result_opportunity = AsyncResult()
 	#arbitrage_opportunity = Event()
@@ -81,7 +80,7 @@ if __name__ == '__main__':
 
 	## Rates Thread
 	def ratesTracking():
-		rates_started.set()
+		#rates_started.set()
 		
 		if rates_tracking:
 			rw = RatesWalker()
@@ -109,31 +108,33 @@ if __name__ == '__main__':
 			#print '         Creating Image of DiGraph of -log(Rates Data Set)\n'
 			#rw.createNegativeLogRatesImage('recent', processed_rates)
 			#print ' - Created image negative_log_recent_rates_digraph.png\n'
-
+		else:
+			rates_window.addstr(3, 1, 'Rates Tracking Disabled')
+			rates_window.refresh()
 
 	## Arbiter Thread
 	def arbiterTracking():
-		rates_started.wait()
-		processed_rates = rates_q.get()
-
 		arbiter = Arbiter()
 		#print 'Initialized Arbiter....\n'
-		arbiter_window.addstr(0, 1, 'Arbiter', curses.A_UNDERLINE)
-		if arbiter_tracking:
+
+		if arbiter_tracking:		
+			arbiter_window.addstr(0, 1, 'Arbiter', curses.A_UNDERLINE)
+			arbiter_window.refresh()
+
 			#arbiter_window.addstr(1, 1, 'Searching for arbitrage opportunities....')
+			processed_rates = rates_q.get()
 			#arbiter_window.addstr(2, 1, str(processed_rates))
 			#arbiter_window.refresh()
-			
-			if processed_rates != {}:
+
+			if processed_rates:
 				#print 'Processed Rates passed to Arbiter Tracking:', processed_rates
-				#edge = arbiter.findOpportunity(processed_rates)
-				#print edge
+				opportunity_edge = arbiter.findOpportunity(processed_rates)
+				#arbiter_window.addstr(str(edge))
 
 				best_polygon, best_ratio = arbiter.getBestPolygonFromPermutate(processed_rates, \
 											 arbiter.permutateRatesAroundEdge(processed_rates, \
 											 arbiter.findOpportunity(processed_rates)))
 
-				#best_polygon, best_ratio = arbiter.getRatesPolygonRatio(processed_rates)
 				if best_polygon:
 					if best_ratio:
 						arbiter_window.addstr(1, 1, 'The most profitable arbitrage cycle is:')
@@ -147,41 +148,48 @@ if __name__ == '__main__':
 
 						# Create DiGraph of best polygon
 
-						arb_dg = arbiter.createCircularDiGraph(best_polygon, processed_rates)
+						#arb_dg = arbiter.createCircularDiGraph(best_polygon, processed_rates)
 
 						# Create image of best polygon digraph
 						#print '         Creating Image of DiGraph of Best Arbitrage Opportunity\n'
 						#createImageFromDiGraph(arb_dg, 'best_opportunity')
 						#print ' - Created image best_opportunity_digraph.png\n'
+		else:
+			arbiter_window.addstr(1, 1, 'Arbiter Tracking Disabled')
+			arbiter_window.refresh()
 
 	## Transaction Thread
 	def transactionTracking():
 		print 'Initialized transactionTracking....\n'
 
 		#arbitrage_opportunity.wait()
-		arbitrage_dg = async_result_opportunity.get()
+		#arbitrage_dg = async_result_opportunity.get()
 		#print 'transactionTracking() received arbitrage polygon:', arbitrage_dg, '\n'
 		print '         Ready to begin transaction....'		
 	
 	# Input Tracking
 	while 1:
+		gevent.joinall([
+			gevent.spawn(ratesTracking),
+			gevent.spawn(arbiterTracking),
+			#gevent.spawn(transactionTracking),
+		])
+
 		stdscr.addstr(0, 1, 'Arbitrage Program created by Glen Baker', curses.A_REVERSE)
-		stdscr.addstr(1, 1, "- Press enter to continue, 'q' to quit")
+		stdscr.addstr(1, 1, "- Press any key to continue, 'q' to quit")
 		c = stdscr.getch()
 		if c == ord('q'):
 			# Shutdown Curses UI
 			curses.nocbreak(); stdscr.keypad(0); curses.echo()
 			curses.endwin()
 
-			rates_q = JoinableQueue() # Clear Gevent Queue
+			rates_q = JoinableQueue() # Clear Queue
 			break
-		if c == ord('r'):
-			rates_tracking = not rates_tracking
-
-		gevent.joinall([
-			gevent.spawn(ratesTracking),
-			gevent.spawn(arbiterTracking),
-			#gevent.spawn(transactionTracking),
-		])
+		#if c == ord('r'):
+		#	if rates_tracking:
+		#		rates_tracking = False
+		#	else:
+		#		rates_tracking = True
+		#		gevent.spawn(ratesTracking)
 
 	rates_q.join()
