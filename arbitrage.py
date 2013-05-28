@@ -49,7 +49,7 @@ if __name__ == '__main__':
 	
 	# Arbiter UI
 	arb_begin_x = 0
-	arb_begin_y = 24
+	arb_begin_y = 25
 	arb_height = 15
 	arb_width = 80
 	arbiter_window = curses.newwin(arb_height, arb_width, arb_begin_y, arb_begin_x)
@@ -127,9 +127,9 @@ if __name__ == '__main__':
 		#print 'Initialized Arbiter....\n'
 		arbiter_window.addstr(0, 1, 'Arbiter', curses.A_UNDERLINE)
 		if arbiter_tracking:
-			arbiter_window.addstr(1, 1, 'Searching for arbitrage opportunities....')
+			#arbiter_window.addstr(1, 1, 'Searching for arbitrage opportunities....')
 			#arbiter_window.addstr(2, 1, str(processed_rates))
-			arbiter_window.refresh()
+			#arbiter_window.refresh()
 			
 			if processed_rates != {}:
 				#print 'Processed Rates passed to Arbiter Tracking:', processed_rates
@@ -143,10 +143,10 @@ if __name__ == '__main__':
 				#best_polygon, best_ratio = arbiter.getRatesPolygonRatio(processed_rates)
 				if best_polygon:
 					if best_ratio:
-						arbiter_window.addstr(3, 1, 'The most profitable arbitrage opportunity is:')
-						arbiter_window.addstr(4, 1, str(best_polygon), curses.A_STANDOUT)
-						arbiter_window.addstr(5, 1, 'With a rate of return of:')
-						arbiter_window.addstr(6, 1, str(best_ratio), curses.A_STANDOUT)
+						arbiter_window.addstr(1, 1, 'The most profitable arbitrage opportunity is:')
+						arbiter_window.addstr(2, 1, str(best_polygon), curses.A_STANDOUT)
+						arbiter_window.addstr(3, 1, 'With a rate of return of:')
+						arbiter_window.addstr(4, 1, str(best_ratio), curses.A_STANDOUT)
 						arbiter_window.addstr(' %')
 						arbiter_window.refresh()
 
