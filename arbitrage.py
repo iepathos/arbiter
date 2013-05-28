@@ -136,7 +136,7 @@ if __name__ == '__main__':
 				#best_polygon, best_ratio = arbiter.getRatesPolygonRatio(processed_rates)
 				if best_polygon:
 					if best_ratio:
-						arbiter_window.addstr(1, 1, 'The most profitable arbitrage opportunity is:')
+						arbiter_window.addstr(1, 1, 'The most profitable arbitrage cycle is:')
 						arbiter_window.addstr(2, 1, str(best_polygon), curses.A_STANDOUT)
 						arbiter_window.addstr(3, 1, 'With a rate of return of:')
 						arbiter_window.addstr(4, 1, str(best_ratio), curses.A_STANDOUT)
