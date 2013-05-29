@@ -14,8 +14,6 @@ import json
 from gevent.event import Event, AsyncResult
 from gevent.queue import JoinableQueue
 
-#import signal
-
 from time import gmtime, strftime
 import time
 def timeCheck():
@@ -30,9 +28,6 @@ from rates import RatesWalker, createImageFromDiGraph
 from arbiter import Arbiter
 
 if __name__ == '__main__':
-	#gevent.signal(signal.SIGTERM, gevent.shutdown)
-	#gevent.signal(signal.SIGQUIT, gevent.shutdown)
-	#gevent.signal(signal.SIGINT, gevent.shutdown)
 
 	# Initialize Curses UI
 	stdscr = curses.initscr()
