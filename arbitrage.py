@@ -125,30 +125,30 @@ if __name__ == '__main__':
 				#print 'Processed Rates passed to Arbiter Tracking:', processed_rates
 				opportunity_edge = arbiter.findOpportunity(processed_rates)
 				#arbiter_window.addstr(str(edge))
+				if opportunity_edge:
+					best_polygon, best_ratio = arbiter.getBestPolygonFromPermutate(processed_rates, \
+												 arbiter.permutateRatesAroundEdge(processed_rates, \
+												 arbiter.findOpportunity(processed_rates)))
 
-				best_polygon, best_ratio = arbiter.getBestPolygonFromPermutate(processed_rates, \
-											 arbiter.permutateRatesAroundEdge(processed_rates, \
-											 arbiter.findOpportunity(processed_rates)))
+					if best_polygon:
+						if best_ratio:
+							arbiter_window.addstr(1, 1, 'The most profitable arbitrage cycle is:')
+							arbiter_window.addstr(2, 1, str(best_polygon), curses.A_STANDOUT)
+							arbiter_window.addstr(3, 1, 'With a rate of return of:')
+							arbiter_window.addstr(4, 1, str(best_ratio), curses.A_STANDOUT)
+							arbiter_window.addstr(' %')
+							arbiter_window.refresh()
 
-				if best_polygon:
-					if best_ratio:
-						arbiter_window.addstr(1, 1, 'The most profitable arbitrage cycle is:')
-						arbiter_window.addstr(2, 1, str(best_polygon), curses.A_STANDOUT)
-						arbiter_window.addstr(3, 1, 'With a rate of return of:')
-						arbiter_window.addstr(4, 1, str(best_ratio), curses.A_STANDOUT)
-						arbiter_window.addstr(' %')
-						arbiter_window.refresh()
+							rates_q.task_done()
 
-						rates_q.task_done()
+							# Create DiGraph of best polygon
 
-						# Create DiGraph of best polygon
+							#arb_dg = arbiter.createCircularDiGraph(best_polygon, processed_rates)
 
-						#arb_dg = arbiter.createCircularDiGraph(best_polygon, processed_rates)
-
-						# Create image of best polygon digraph
-						#print '         Creating Image of DiGraph of Best Arbitrage Opportunity\n'
-						#createImageFromDiGraph(arb_dg, 'best_opportunity')
-						#print ' - Created image best_opportunity_digraph.png\n'
+							# Create image of best polygon digraph
+							#print '         Creating Image of DiGraph of Best Arbitrage Opportunity\n'
+							#createImageFromDiGraph(arb_dg, 'best_opportunity')
+							#print ' - Created image best_opportunity_digraph.png\n'
 		else:
 			arbiter_window.addstr(1, 1, 'Arbiter Tracking Disabled')
 			arbiter_window.refresh()
