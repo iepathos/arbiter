@@ -10,4 +10,7 @@ Written by Glen Baker - iepathos@gmail.com
 ##Usage
 ./arbitrage
 
-Hit 'enter' to re-run and 'q' to quit.
+Hit any to begin and any key to re-run after that.
+Hit 'q' to quit.
+
+Please note, your terminal window must be sized properly when you begin running the program to be able to see all of the Arbiter output.
